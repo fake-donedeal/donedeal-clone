@@ -1,7 +1,7 @@
 <script setup></script>
 
 <template>
-  <header>
-    <h1>header</h1>
+  <header class="bg-slate-400">
+    <h1 class="underline">header</h1>
   </header>
 </template>
