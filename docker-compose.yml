@@ -1,0 +1,37 @@
+version: "3"
+services:
+  # frontend:
+  #   container_name: frontend
+  backend:
+    container_name: server_api
+    build: ./backend
+    volumes:
+      - apiserver-data:/backend
+    command: npm run start
+    ports:
+      - "3000:3000"
+    environment:
+      - API_SERVER_PORT=3000
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    depends_on:
+      - postgres
+  postgres:
+    container_name: postgres_db
+    image: postgres:latest
+    volumes:
+      - /home/jake/projects/vol/postgres-data/:/var/lib/postgresql/data
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+  # image-processor:
+  #   container_name: image-processor
+  #   image: golang:latest
+
+volumes:
+  apiserver-data:
